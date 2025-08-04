@@ -1,4 +1,5 @@
-from dateutil.parser import parse
+from datetime import datetime
+
 from django.db.models import QuerySet
 from db.models import Order, Ticket, User, MovieSession
 from django.db import transaction
@@ -15,7 +16,7 @@ def create_order(
             user=user
         )
         if date is not None:
-            order.created_at = parse(date)
+            order.created_at = datetime.strptime(date, "%Y-%m-%d %H:%M")
             order.save()
 
         for ticket in tickets:
